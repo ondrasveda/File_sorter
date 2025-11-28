@@ -1,0 +1,109 @@
+PODZEMNÍ SÍŤ - ONDŘEJ ŠVÉDA
+
+sry za tenhle shit formát ale word mi v 11 večer dal troll a smazal mi půlku dokumentu
+snad je to aspoň trochu čitelný 
+
+1. ANALÝZA PROBLÉMU
+
+Na vstupu je graf s N uzly (stanoviště) a M hranami (propojení mezi stanovišti).
+Pro každý dotaz dostanu množinu důležitých stanovišť S a cílem je najít 
+stanoviště, které minimalizuje součet vzdáleností ke všem z S:
+
+  DS(v) = ∑u∈S(d(u,v))
+
+kde d(u,v) je nejkratší vzdálenost mezi uzly u a v -> hledáme min DS(v)
+
+
+2. Cvičení 1,2
+
+PRINCIP ŘEŠENÍ:
+  
+  V obecném ohodnoceném grafu je nejlepší způsob (pro toto cvičení) pro 
+  nalezení nejkratších cest Dijkstrův algoritmus (A* by se používal, 
+  kdybychom chtěli hledat nejkratší cestu k 1 konkrétnímu bodu velmi rychle).
+  
+  Pokud známe nejkratší vzdálenosti od všech důležitých uzlů ke všem ostatním, 
+  můžeme pro každý uzel v grafu spočítat DS(v) a pak jen najít nejnižší hodnotu.
+
+
+ALGORITMUS:
+
+  Vstup: Graf G s n uzly, m hranami a množina důležitých uzlů S
+  
+  Postup:
+  
+    1. Spustí se Dijkstra pro každý důležitý uzel
+    2. Dijkstra zjistí vzdálenost z tohoto uzlu ke všem ostatním uzlům
+    3. Tyto vzdálenosti se uloží
+    4. Pro každý uzel v se sečtou vzdálenosti ze všech důležitých uzlů → DS(v)
+    5. Vybere se ten uzel, který má tento součet nejnižší
+
+
+ČASOVÁ SLOŽITOST:
+
+  - Jedno spuštění Dijkstrova algoritmu s binární haldou: O(m * log n)
+  - Dijkstra se spouští k-krát -> hledáme vzdálenosti pro důležité uzly
+  - Celková časová složitost: O(km * log n)
+
+
+
+3. Cvičení 3
+
+ANALÝZA PROBLÉMU:
+
+  Na vstupu je strom s N uzly (stanovišti) a N-1 hranami (propojení mezi 
+  stanovišti). Pro každý dotaz dostanu množinu důležitých stanovišť S.
+  S obsahuje všechny uzly (k = n). Cílem je najít stanoviště, které minimalizuje 
+  součet vzdáleností ke všem ostatním (stejně jako u předchozích cvičení).
+
+PRINCIP ŘEŠENÍ:
+
+  Strom má výhodu že existuje mezi každou dvojicí uzlů právě jedna cesta. 
+  To umožňuje lepší řešení než pouštět Dijkstru pořád dokola na každý uzel. 
+  Misto toho se dá použít "tree rerooting"
+  
+  Základní myšlenka: Nejdříve spočítáme součet vzdáleností od jednoho uzlu 
+  ke všem ostatním. Pak se "posouváme" po stromu a pro každý další uzel 
+  přepočítáme jeho součet – uzly v podstromu se přiblíží o váhu hrany, 
+  uzly mimo podstrom se vzdálí o váhu hrany (nečekaně).
+
+
+ALGORITMUS:
+
+  Vstup: Strom G s n uzly a množina důležitých uzlů S (S = V, tedy všechny uzly)
+  
+  Postup:
+  
+    1. Zvolí se kořen (třeba uzel 1) a spustí se první DFS
+    2. První DFS spočítá pro každý uzel:
+       - Počet uzlů v jeho podstromu
+       - Součet vzdáleností od něj ke všem uzlům v podstromu
+    3. Získá se DS(kořen) = subtreeSum(kořen)
+    4. Druhým DFS se "přkořenovává" (nevim jak se to slovo má napsat správně)
+       strom – pro každý uzel c s rodičem p se spočítá:
+       DS(c) = DS(p) + w(p,c) × (n - 2 × subtreeSize(c))
+    5. Vybere se minimální hodnota z DS(v) pro všechny uzly v
+
+
+VYSVĚTLENÍ VZORCE:
+
+  Když se přesuneme z rodiče p (parent) na dítě c (child):
+  
+    - Uzly v podstromu c se přiblíží o váhu hrany 
+      → DS se zmenší o w(p,c) × subtreeSize(c)
+    - Uzly mimo podstrom c se vzdálí o váhu hrany 
+      → DS se zvětší o w(p,c) × (n - subtreeSize(c))
+    - Součet efektů: w(p,c) × (n - 2 × subtreeSize(c))
+
+
+ČASOVÁ SLOŽITOST:
+
+  - První DFS: O(n)
+  - Druhé DFS: O(n)
+  - Hledání minima: O(n)
+  - Celková časová složitost: O(n)
+
+
+
+
+

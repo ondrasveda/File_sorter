@@ -1,0 +1,16 @@
+--- Logování zahájeno: 11/24/2025 11:54:36 AM ---
+11:54:36.688 [TID: 1] Konfigurace načtena. Zdroj: C:\Users\ondra\filesort\input, Cíl: C:\Users\ondra\filesort\output, Vláken: 3
+11:54:36.693 [TID: 11] PRODUCENT: Zahajuji skenování...
+11:54:36.697 [TID: 11] PRODUCENT: Nalezeno a přidáno 6 souborů do fronty.
+11:54:36.712 [TID: 12] [Worker 3] PŘESUNUTO: ele_calc.py -> PY
+11:54:36.712 [TID: 8] [Worker 1] PŘESUNUTO: input2.txt -> TXT
+11:54:36.713 [TID: 5] [Worker 2] PŘESUNUTO: makeitmeme_8gIjC.jpeg -> JPEG
+11:54:36.714 [TID: 12] [Worker 3] PŘESUNUTO: makeitmeme_CIYY3.jpeg -> JPEG
+11:54:36.715 [TID: 8] [Worker 1] PŘESUNUTO: Navigace - Šv&#233;da.pdf -> PDF
+11:54:36.716 [TID: 5] [Worker 2] PŘESUNUTO: Podzemn&#237; s&#237;ť - Šv&#233;da.txt -> TXT
+11:54:36.717 [TID: 8] [Worker 1] Dokončil práci a končí.
+11:54:36.717 [TID: 12] [Worker 3] PŘESUNUTO: WebTestReportSablona.docx -> DOCX
+11:54:36.718 [TID: 5] [Worker 2] Dokončil práci a končí.
+11:54:36.719 [TID: 12] [Worker 3] Dokončil práci a končí.
+11:54:36.720 [TID: 12] ------------------------------------------------------------------
+11:54:36.721 [TID: 12] Všechny úkoly dokončeny. Stiskněte ENTER pro ukončení.

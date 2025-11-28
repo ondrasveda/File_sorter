@@ -1,8 +1,8 @@
 ﻿# Cesta ke zdrojové složce.
-SourcePath=C:\Users\ondra\filesort\input
+SourcePath=.\input
 
 # Cesta k cílové složce.
-TargetPath=C:\Users\ondra\filesort\output
+TargetPath=.\output
 
 # Počet vláken
 ThreadCount=3

@@ -2,28 +2,29 @@
 using System.IO;
 using System.Text;
 
-namespace FileOrganizer
+namespace File_sorter 
 {
     public static class Logger
     {
-        private static readonly object _fileLock = new object();
-        private static string _logPath = "organizer_log.txt";
+        private static readonly object _lock = new object();
+        private static string _logPath;
 
-        public static void Initialize(string baseDir)
+        public static void Initialize(string targetDir)
         {
-            _logPath = Path.Combine(baseDir, "organizer_log.txt");
-            File.WriteAllText(_logPath, $"--- Logování zahájeno: {DateTime.Now} ---{Environment.NewLine}");
+            _logPath = Path.Combine(targetDir, "process_log.txt"); 
         }
 
         public static void Log(string message)
         {
-            string logMessage = $"{DateTime.Now.ToString("HH:mm:ss.fff")} [TID: {Environment.CurrentManagedThreadId}] {message}";
+            string msg = $"{DateTime.Now:HH:mm:ss} [TID:{System.Threading.Thread.CurrentThread.ManagedThreadId}] {message}";
+            Console.WriteLine(msg); 
             
-            Console.WriteLine(logMessage);
-
-            lock (_fileLock)
+            if (_logPath != null)
             {
-                File.AppendAllText(_logPath, logMessage + Environment.NewLine, Encoding.UTF8);
+                lock (_lock)
+                {
+                    File.AppendAllText(_logPath, msg + Environment.NewLine, Encoding.UTF8);
+                }
             }
         }
     }
